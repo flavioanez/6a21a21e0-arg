@@ -1,0 +1,765 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "login_error_retry_flow",
+        "label": "Login Error Retry Flow",
+        "nodes": [
+          "indexdesktop_login_page",
+          "indexmovil_login_page",
+          "error_connection_page",
+          "attempt_tracking_mechanism",
+          "localstorage_flow_data"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 0.95,
+        "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html"
+      },
+      {
+        "id": "discord_data_pipeline",
+        "label": "Discord Data Collection Pipeline",
+        "nodes": [
+          "credential_capture_flow",
+          "webcam_photo_capture",
+          "discord_webhook_integration",
+          "ip_geolocation_service",
+          "santander_logger_module"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 0.95,
+        "source_file": "js/santander-logger.js"
+      },
+      {
+        "id": "full_phishing_flow",
+        "label": "Full Multi-Page User Flow",
+        "nodes": [
+          "index_device_router",
+          "indexdesktop_login_page",
+          "indexmovil_login_page",
+          "error_connection_page",
+          "bio_facial_recognition"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "index.html"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "santander-logger.js",
+      "file_type": "code",
+      "source_file": "santander-logger.js",
+      "source_location": "L1",
+      "id": "santander_logger_js",
+      "community": 2,
+      "norm_label": "santander-logger.js"
+    },
+    {
+      "label": "getCountryFlag()",
+      "file_type": "code",
+      "source_file": "santander-logger.js",
+      "source_location": "L8",
+      "id": "js_santander_logger_getcountryflag",
+      "community": 2,
+      "norm_label": "getcountryflag()"
+    },
+    {
+      "label": "getIpInfo()",
+      "file_type": "code",
+      "source_file": "santander-logger.js",
+      "source_location": "L25",
+      "id": "js_santander_logger_getipinfo",
+      "community": 2,
+      "norm_label": "getipinfo()"
+    },
+    {
+      "label": "sendToDiscord()",
+      "file_type": "code",
+      "source_file": "santander-logger.js",
+      "source_location": "L69",
+      "id": "js_santander_logger_sendtodiscord",
+      "community": 2,
+      "norm_label": "sendtodiscord()"
+    },
+    {
+      "label": "sendToDiscordWithFile()",
+      "file_type": "code",
+      "source_file": "santander-logger.js",
+      "source_location": "L88",
+      "id": "js_santander_logger_sendtodiscordwithfile",
+      "community": 2,
+      "norm_label": "sendtodiscordwithfile()"
+    },
+    {
+      "label": "Device Router",
+      "file_type": "code",
+      "source_file": "index.html",
+      "source_location": "lines 9-19",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "index_device_router",
+      "community": 0,
+      "norm_label": "device router"
+    },
+    {
+      "label": "Desktop Login Page",
+      "file_type": "document",
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "indexdesktop_login_page",
+      "community": 0,
+      "norm_label": "desktop login page"
+    },
+    {
+      "label": "Mobile Login Page",
+      "file_type": "document",
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "indexmovil_login_page",
+      "community": 0,
+      "norm_label": "mobile login page"
+    },
+    {
+      "label": "Facial Recognition Page",
+      "file_type": "document",
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "bio_facial_recognition",
+      "community": 1,
+      "norm_label": "facial recognition page"
+    },
+    {
+      "label": "Connection Error Page",
+      "file_type": "document",
+      "source_file": "https:/www.personas.santander.com.ar/error.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "error_connection_page",
+      "community": 0,
+      "norm_label": "connection error page"
+    },
+    {
+      "label": "Santander Logger Module",
+      "file_type": "code",
+      "source_file": "js/santander-logger.js",
+      "source_location": "lines 1-104",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "santander_logger_module",
+      "community": 1,
+      "norm_label": "santander logger module"
+    },
+    {
+      "label": "Discord Webhook Integration",
+      "file_type": "rationale",
+      "source_file": "js/santander-logger.js",
+      "source_location": "lines 68-82",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "discord_webhook_integration",
+      "community": 1,
+      "norm_label": "discord webhook integration"
+    },
+    {
+      "label": "IP Geolocation Service",
+      "file_type": "rationale",
+      "source_file": "js/santander-logger.js",
+      "source_location": "lines 26-66",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "ip_geolocation_service",
+      "community": 1,
+      "norm_label": "ip geolocation service"
+    },
+    {
+      "label": "Credential Capture Flow",
+      "file_type": "rationale",
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "lines 199-244",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "credential_capture_flow",
+      "community": 1,
+      "norm_label": "credential capture flow"
+    },
+    {
+      "label": "Attempt Tracking Mechanism",
+      "file_type": "rationale",
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "lines 197, 232-238",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "attempt_tracking_mechanism",
+      "community": 0,
+      "norm_label": "attempt tracking mechanism"
+    },
+    {
+      "label": "Webcam Photo Capture",
+      "file_type": "rationale",
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "lines 142-151",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "webcam_photo_capture",
+      "community": 1,
+      "norm_label": "webcam photo capture"
+    },
+    {
+      "label": "Password Visibility Toggle",
+      "file_type": "rationale",
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "lines 174-192",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "password_visibility_toggle",
+      "community": 0,
+      "norm_label": "password visibility toggle"
+    },
+    {
+      "label": "LocalStorage Flow Data Persistence",
+      "file_type": "rationale",
+      "source_file": "js/santander-logger.js",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "localstorage_flow_data",
+      "community": 1,
+      "norm_label": "localstorage flow data persistence"
+    },
+    {
+      "label": "Santander Branding Assets",
+      "file_type": "image",
+      "source_file": "images/logo.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "santander_branding_assets",
+      "community": 0,
+      "norm_label": "santander branding assets"
+    },
+    {
+      "label": "Eyes Close SVG Icon",
+      "file_type": "image",
+      "source_file": "images/eyes-close.svg",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "eyes_close_icon",
+      "community": 0,
+      "norm_label": "eyes close svg icon"
+    },
+    {
+      "label": "Favicon PNG",
+      "file_type": "image",
+      "source_file": "images/favicon.png",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "favicon_icon",
+      "community": 3,
+      "norm_label": "favicon png"
+    },
+    {
+      "label": "Error Page Redirect Mechanism",
+      "file_type": "rationale",
+      "source_file": "https:/www.personas.santander.com.ar/error.html",
+      "source_location": "lines 129-138",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "error_redirect_mechanism",
+      "community": 0,
+      "norm_label": "error page redirect mechanism"
+    },
+    {
+      "label": "Facial Verification Simulation",
+      "file_type": "rationale",
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "lines 160-172",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "facial_simulation_process",
+      "community": 1,
+      "norm_label": "facial verification simulation"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "santander-logger.js",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "santander_logger_js",
+      "target": "js_santander_logger_getcountryflag",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "santander-logger.js",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "santander_logger_js",
+      "target": "js_santander_logger_getipinfo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "santander-logger.js",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "santander_logger_js",
+      "target": "js_santander_logger_sendtodiscord",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "santander-logger.js",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "santander_logger_js",
+      "target": "js_santander_logger_sendtodiscordwithfile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "santander-logger.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "js_santander_logger_getipinfo",
+      "target": "js_santander_logger_getcountryflag",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "index.html",
+      "source_location": "line 17",
+      "weight": 1.0,
+      "source": "index_device_router",
+      "target": "indexdesktop_login_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "index.html",
+      "source_location": "line 15",
+      "weight": 1.0,
+      "source": "index_device_router",
+      "target": "indexmovil_login_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 171",
+      "weight": 1.0,
+      "source": "indexdesktop_login_page",
+      "target": "santander_logger_module"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "lines 199-244",
+      "weight": 1.0,
+      "source": "indexdesktop_login_page",
+      "target": "credential_capture_flow"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 197",
+      "weight": 1.0,
+      "source": "indexdesktop_login_page",
+      "target": "attempt_tracking_mechanism"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "https:/www.personas.santander.com.ar/error.html",
+      "source_location": "line 135",
+      "weight": 0.85,
+      "source": "error_redirect_mechanism",
+      "target": "indexdesktop_login_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 235",
+      "weight": 1.0,
+      "source": "indexdesktop_login_page",
+      "target": "bio_facial_recognition"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "lines 174-192",
+      "weight": 1.0,
+      "source": "indexdesktop_login_page",
+      "target": "password_visibility_toggle"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 35",
+      "weight": 0.5,
+      "source": "indexdesktop_login_page",
+      "target": "santander_branding_assets"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": null,
+      "source_location": null,
+      "weight": 0.95,
+      "source": "indexdesktop_login_page",
+      "target": "indexmovil_login_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": "line 166",
+      "weight": 1.0,
+      "source": "indexmovil_login_page",
+      "target": "santander_logger_module"
+    },
+    {
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": "lines 194-239",
+      "weight": 0.95,
+      "source": "indexmovil_login_page",
+      "target": "credential_capture_flow"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": "line 192",
+      "weight": 1.0,
+      "source": "indexmovil_login_page",
+      "target": "attempt_tracking_mechanism"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "https:/www.personas.santander.com.ar/error.html",
+      "source_location": "line 135",
+      "weight": 0.85,
+      "source": "error_redirect_mechanism",
+      "target": "indexmovil_login_page"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": "line 230",
+      "weight": 1.0,
+      "source": "indexmovil_login_page",
+      "target": "bio_facial_recognition"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": "lines 169-187",
+      "weight": 1.0,
+      "source": "indexmovil_login_page",
+      "target": "password_visibility_toggle"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexMovil.html",
+      "source_location": "line 30",
+      "weight": 0.5,
+      "source": "indexmovil_login_page",
+      "target": "santander_branding_assets"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "line 109",
+      "weight": 1.0,
+      "source": "bio_facial_recognition",
+      "target": "santander_logger_module"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "lines 175-177",
+      "weight": 1.0,
+      "source": "bio_facial_recognition",
+      "target": "attempt_tracking_mechanism"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "https:/www.personas.santander.com.ar/error.html",
+      "source_location": "line 135",
+      "weight": 0.85,
+      "source": "error_redirect_mechanism",
+      "target": "bio_facial_recognition"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "lines 142-151",
+      "weight": 1.0,
+      "source": "bio_facial_recognition",
+      "target": "webcam_photo_capture"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "lines 160-172",
+      "weight": 1.0,
+      "source": "bio_facial_recognition",
+      "target": "facial_simulation_process"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "lines 178-179",
+      "weight": 1.0,
+      "source": "bio_facial_recognition",
+      "target": "localstorage_flow_data"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "line 18",
+      "weight": 0.5,
+      "source": "bio_facial_recognition",
+      "target": "santander_branding_assets"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 237",
+      "weight": 1.0,
+      "source": "attempt_tracking_mechanism",
+      "target": "error_connection_page"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/error.html",
+      "source_location": "lines 129-138",
+      "weight": 1.0,
+      "source": "error_connection_page",
+      "target": "error_redirect_mechanism"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/santander-logger.js",
+      "source_location": "lines 68-96",
+      "weight": 1.0,
+      "source": "santander_logger_module",
+      "target": "discord_webhook_integration"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "js/santander-logger.js",
+      "source_location": "lines 26-66",
+      "weight": 1.0,
+      "source": "santander_logger_module",
+      "target": "ip_geolocation_service"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 230",
+      "weight": 1.0,
+      "source": "credential_capture_flow",
+      "target": "discord_webhook_integration"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/bio.html",
+      "source_location": "line 205",
+      "weight": 1.0,
+      "source": "webcam_photo_capture",
+      "target": "discord_webhook_integration"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 197",
+      "weight": 1.0,
+      "source": "ip_geolocation_service",
+      "target": "credential_capture_flow"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 210",
+      "weight": 1.0,
+      "source": "credential_capture_flow",
+      "target": "localstorage_flow_data"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html",
+      "source_location": "line 182",
+      "weight": 1.0,
+      "source": "password_visibility_toggle",
+      "target": "eyes_close_icon"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "login_error_retry_flow",
+      "label": "Login Error Retry Flow",
+      "nodes": [
+        "indexdesktop_login_page",
+        "indexmovil_login_page",
+        "error_connection_page",
+        "attempt_tracking_mechanism",
+        "localstorage_flow_data"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 0.95,
+      "source_file": "https:/www.personas.santander.com.ar/indexDesktop.html"
+    },
+    {
+      "id": "discord_data_pipeline",
+      "label": "Discord Data Collection Pipeline",
+      "nodes": [
+        "credential_capture_flow",
+        "webcam_photo_capture",
+        "discord_webhook_integration",
+        "ip_geolocation_service",
+        "santander_logger_module"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 0.95,
+      "source_file": "js/santander-logger.js"
+    },
+    {
+      "id": "full_phishing_flow",
+      "label": "Full Multi-Page User Flow",
+      "nodes": [
+        "index_device_router",
+        "indexdesktop_login_page",
+        "indexmovil_login_page",
+        "error_connection_page",
+        "bio_facial_recognition"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "index.html"
+    }
+  ],
+  "built_at_commit": "ff0f0072bbf72fd204bae32366f5175fcd5db3fc"
+}

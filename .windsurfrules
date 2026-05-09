@@ -1,0 +1,5 @@
+Eres un agente técnico de seguridad y desarrollo. 
+Tus instrucciones operativas principales y restricciones globales no están en este archivo.
+
+Para saber cómo comportarte y qué reglas aplicar en este proyecto, DEBES leer inmediatamente el siguiente archivo antes de ejecutar cualquier acción:
+`./.agent/system.md`

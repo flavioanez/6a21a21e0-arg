@@ -57,7 +57,7 @@ html, body {
 	text-decoration: underline;
 }
 
-/* ===== PANEL LOGIN ===== */
+/* ===== PANEL LOGN ===== */
 .panel-primary {
 	width: 440px;
 	min-width: 440px;
@@ -91,32 +91,32 @@ html, body {
 	border-bottom: 3px solid #ec0000;
 }
 
-.login-container {
+.logn-container {
 	padding: 40px 30px;
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 }
 
-.login-container__header__title {
+.logn-container__header__title {
 	font-size: 1.5rem;
 	font-weight: 700;
 	color: #333;
 	margin-bottom: 8px;
 }
 
-.login-container__header p {
+.logn-container__header p {
 	font-size: 0.95rem;
 	color: #666;
 	margin-bottom: 30px;
 }
 
 /* ===== INPUTS ===== */
-.content-input-login {
+.content-input-logn {
 	margin-bottom: 20px;
 }
 
-.content-input-login label {
+.content-input-logn label {
 	display: block;
 	font-size: 0.85rem;
 	color: #666;
@@ -124,7 +124,7 @@ html, body {
 	font-weight: 600;
 }
 
-.content-input-login input {
+.content-input-logn input {
 	width: 100%;
 	border: none;
 	border-bottom: 1px solid #c9c9c9;
@@ -136,7 +136,7 @@ html, body {
 	background: transparent;
 }
 
-.content-input-login input:focus {
+.content-input-logn input:focus {
 	border-bottom: 2px solid #ec0000;
 }
 
@@ -178,7 +178,7 @@ html, body {
 }
 
 /* ===== BUTTONS ===== */
-.button-login {
+.button-logn {
 	width: 100%;
 	background: #ec0000;
 	color: #fff;
@@ -193,11 +193,11 @@ html, body {
 	margin-bottom: 20px;
 }
 
-.button-login:hover {
+.button-logn:hover {
 	background: #c00;
 }
 
-.button-login:active {
+.button-logn:active {
 	background: #a00;
 }
 
@@ -217,33 +217,33 @@ html, body {
 }
 
 /* ===== SECURITY MESSAGE ===== */
-.login-container__mensaje-seguridad {
+.logn-container__mensaje-seguridad {
 	margin-top: auto;
 	padding-top: 30px;
 	border-top: 1px solid #e8e8e8;
 }
 
-.login-container__mensaje-seguridad__principal {
+.logn-container__mensaje-seguridad__principal {
 	font-size: 0.85rem;
 	font-weight: 700;
 	color: #333;
 	margin-bottom: 4px;
 }
 
-.login-container__mensaje-seguridad__texto {
+.logn-container__mensaje-seguridad__texto {
 	font-size: 0.8rem;
 	color: #666;
 	margin-bottom: 8px;
 }
 
-.login-container__mensaje-seguridad__link {
+.logn-container__mensaje-seguridad__link {
 	font-size: 0.8rem;
 	color: #ec0000;
 	text-decoration: none;
 	font-weight: 600;
 }
 
-.login-container__mensaje-seguridad__link:hover {
+.logn-container__mensaje-seguridad__link:hover {
 	text-decoration: underline;
 }
 
